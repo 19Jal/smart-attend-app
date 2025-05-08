@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Camera, Users, CloudLightning, BarChart3, Shield, Clock, Calendar, Bell, CheckCircle, Award, Zap, ArrowRight, Server, Cpu, ChevronDown, Search, Menu, X, ChevronUp } from 'lucide-react';
 import Avatar from './Avatar';
 import dashboardImage from './dashboard.jpg';
@@ -32,7 +32,71 @@ const colors = {
 const AttendanceSystemWebsite = () => {
   const [activeSection, setActiveSection] = useState('features');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Throttling utility function
+  const throttle = (func, delay) => {
+    let lastCall = 0;
+    return function(...args) {
+      const now = new Date().getTime();
+      if (now - lastCall < delay) {
+        return;
+      }
+      lastCall = now;
+      return func(...args);
+    };
+  };
+
+  const scrollToSection = (sectionId) => {
+    setActiveSection(sectionId);
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   
+  useEffect(() => {
+    const handleScroll = () => {
+      // Get current scroll position with slight offset
+      const scrollPosition = window.scrollY + 200;
+      
+      // Get references to all sections
+      const heroSection = document.getElementById('home'); // Assuming you add this ID to your hero section
+      const featuresSection = document.getElementById('features');
+      const howItWorksSection = document.getElementById('how-it-works');
+      const benefitsSection = document.getElementById('benefits');
+      const testimonialsSection = document.getElementById('testimonials');
+      const teamSection = document.getElementById('team'); // Assuming you add this ID to your team section
+      
+      // Determine which section is in view, checking from bottom to top
+      if (teamSection && scrollPosition >= teamSection.offsetTop) {
+        setActiveSection('team');
+      } else if (testimonialsSection && scrollPosition >= testimonialsSection.offsetTop) {
+        setActiveSection('testimonials');
+      } else if (benefitsSection && scrollPosition >= benefitsSection.offsetTop) {
+        setActiveSection('benefits');
+      } else if (howItWorksSection && scrollPosition >= howItWorksSection.offsetTop) {
+        setActiveSection('how-it-works');
+      } else if (featuresSection && scrollPosition >= featuresSection.offsetTop) {
+        setActiveSection('features');
+      } else if (heroSection && scrollPosition >= heroSection.offsetTop) {
+        setActiveSection('home');
+      }
+    };
+
+    const throttledHandleScroll = throttle(handleScroll, 100);
+
+    // Add event listener with throttled handler
+    window.addEventListener('scroll', throttledHandleScroll);
+    
+    // Initialize active section on component mount
+    handleScroll();
+    
+    // Clean up event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', throttledHandleScroll);
+    };
+  }, []);
+
   return (
     <div className="font-sans">
       {/* Header/Navigation */}
@@ -54,7 +118,7 @@ const AttendanceSystemWebsite = () => {
               style={{ color: activeSection === 'features' ? colors.accent[300] : 'white' }}
               onClick={(e) => {
                 e.preventDefault();
-                setActiveSection('features');
+                scrollToSection("features");
               }}
             >
               Features
@@ -65,7 +129,7 @@ const AttendanceSystemWebsite = () => {
               style={{ color: activeSection === 'how-it-works' ? colors.accent[300] : 'white' }}
               onClick={(e) => {
                 e.preventDefault();
-                setActiveSection('how-it-works');
+                scrollToSection("how-it-works");
               }}
             >
               How It Works
@@ -76,7 +140,7 @@ const AttendanceSystemWebsite = () => {
               style={{ color: activeSection === 'benefits' ? colors.accent[300] : 'white' }}
               onClick={(e) => {
                 e.preventDefault();
-                setActiveSection('benefits');
+                scrollToSection("benefits");
               }}
             >
               Benefits
@@ -87,7 +151,7 @@ const AttendanceSystemWebsite = () => {
               style={{ color: activeSection === 'testimonials' ? colors.accent[300] : 'white' }}
               onClick={(e) => {
                 e.preventDefault();
-                setActiveSection('testimonials');
+                scrollToSection("testimonials");
               }}
             >
               Testimonials
@@ -596,6 +660,7 @@ const AttendanceSystemWebsite = () => {
 };
 
 // Helper Components
+
 const FeatureCard = ({ icon, iconBgColor, iconColor, borderColor, title, description }) => {
   const [isHovered, setIsHovered] = useState(false);
   
@@ -707,5 +772,7 @@ const TeamMember = ({ name, role, bgColor, borderColor }) => {
     </div>
   );
 };
+
+
 
 export default AttendanceSystemWebsite;
