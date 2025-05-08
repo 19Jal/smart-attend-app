@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Camera, Users, CloudLightning, BarChart3, Shield, Clock, Calendar, Bell, CheckCircle, Award, Zap, ArrowRight, Server, Cpu, ChevronDown, Search, Menu, X, ChevronUp } from 'lucide-react';
+import Avatar from './Avatar';
+import dashboardImage from './dashboard.jpg';
+import architectImage from './architecture.jpg';
 
 // Custom colors defined inline for the component
 const colors = {
@@ -203,7 +206,7 @@ const AttendanceSystemWebsite = () => {
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/2 mb-10 md:mb-0">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Automated Attendance System Using Facial Recognition</h1>
-              <p className="text-xl mb-8" style={{ color: colors.primary[100] }}>
+              <p className="text-xl mb-8" style={{ color: colors.primary[500]}}>
                 Streamline your attendance process with our IoT and AWS-powered system. No more manual tracking, paperwork, or time wasted.
               </p>
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
@@ -239,23 +242,9 @@ const AttendanceSystemWebsite = () => {
             </div>
             <div className="md:w-1/2">
               <div className="bg-white p-4 rounded-lg shadow-2xl transform rotate-1 hover:rotate-0 transition-transform duration-300">
-                <img src="/api/placeholder/600/400" alt="Smart Attendance System Dashboard" className="rounded" />
+                <img src={dashboardImage} alt="Smart Attendance System Dashboard" className="rounded" />
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Logos/Social Proof */}
-      <section className="py-8" style={{ backgroundColor: colors.primary[100] }}>
-        <div className="container mx-auto px-6">
-          <p className="text-center text-gray-600 mb-6">Trusted by leading educational institutions and businesses</p>
-          <div className="flex justify-center flex-wrap gap-8 md:gap-16">
-            <div className="w-24 h-12 bg-white rounded shadow-md flex items-center justify-center">Logo 1</div>
-            <div className="w-24 h-12 bg-white rounded shadow-md flex items-center justify-center">Logo 2</div>
-            <div className="w-24 h-12 bg-white rounded shadow-md flex items-center justify-center">Logo 3</div>
-            <div className="w-24 h-12 bg-white rounded shadow-md flex items-center justify-center">Logo 4</div>
-            <div className="w-24 h-12 bg-white rounded shadow-md flex items-center justify-center">Logo 5</div>
           </div>
         </div>
       </section>
@@ -334,7 +323,7 @@ const AttendanceSystemWebsite = () => {
           <div className="flex flex-col md:flex-row items-center justify-center gap-8">
             <div className="md:w-1/2 lg:w-5/12">
               <div className="rounded-lg shadow-xl overflow-hidden border-4" style={{ borderColor: colors.primary[300] }}>
-                <img src="/api/placeholder/500/400" alt="System Architecture" className="w-full" />
+                <img src={architectImage} alt="System Architecture" className="w-full" />
               </div>
             </div>
             <div className="md:w-1/2 lg:w-5/12 space-y-6">
@@ -489,7 +478,7 @@ const AttendanceSystemWebsite = () => {
       }}>
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Attendance System?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto" style={{ color: colors.primary[100] }}>
+          <p className="text-xl mb-8 max-w-2xl mx-auto" style={{ color: colors.primary[300] }}>
             Join hundreds of organizations that have modernized their attendance tracking with SmartAttend.
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
@@ -505,19 +494,13 @@ const AttendanceSystemWebsite = () => {
               Request Demo
             </button>
             <button 
-              className="border-2 border-white px-6 py-3 rounded-lg font-medium transition-colors"
+              className="px-6 py-3 rounded-lg font-medium shadow-lg transition-colors"
               style={{ 
-                backgroundColor: 'transparent',
+                backgroundColor: colors.accent[500],
                 color: 'white'
               }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.backgroundColor = 'white';
-                e.currentTarget.style.color = colors.primary[600];
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = 'white';
-              }}
+              onMouseOver={(e) => e.currentTarget.style.backgroundColor = colors.accent[600]}
+              onMouseOut={(e) => e.currentTarget.style.backgroundColor = colors.accent[500]}
             >
               Contact Sales
             </button>
@@ -537,28 +520,24 @@ const AttendanceSystemWebsite = () => {
             <TeamMember 
               name="Ravi Shankar Prasad"
               role="Software & AWS Integration"
-              image="/api/placeholder/150/150"
               bgColor={colors.primary[100]}
               borderColor={colors.primary[500]}
             />
             <TeamMember 
               name="Jalu Veda"
               role="Software & Dashboard Developer"
-              image="/api/placeholder/150/150"
               bgColor={colors.secondary[100]}
               borderColor={colors.secondary[500]}
             />
             <TeamMember 
               name="Hazilky Muna Putra"
               role="GitHub & Documentation"
-              image="/api/placeholder/150/150"
               bgColor={colors.accent[100]}
               borderColor={colors.accent[500]}
             />
             <TeamMember 
               name="Amir Ali"
               role="Hardware Specialist"
-              image="/api/placeholder/150/150"
               bgColor={colors.primary[100]}
               borderColor={colors.primary[500]}
             />
@@ -702,24 +681,26 @@ const TestimonialCard = ({ organization, sector, testimonial, borderColor, iconB
   );
 };
 
-const TeamMember = ({ name, role, image, bgColor, borderColor }) => {
+const TeamMember = ({ name, role, bgColor, borderColor }) => {
   const [isHovered, setIsHovered] = useState(false);
   
   return (
     <div className="text-center">
       <div 
-        className="mb-4 mx-auto w-32 h-32 overflow-hidden rounded-full transition-all duration-300"
+        className="mb-4 mx-auto overflow-hidden rounded-full transition-all duration-300 flex items-center justify-center"
         style={{ 
           padding: '3px',
           backgroundColor: bgColor,
           borderColor: borderColor,
           borderWidth: isHovered ? '3px' : '1px',
-          transform: isHovered ? 'scale(1.05)' : 'scale(1)'
+          transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+          width: '132px',  // 126px + 6px for padding
+          height: '132px'  // 126px + 6px for padding
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <img src={image} alt={name} className="w-full h-full object-cover rounded-full" />
+        <Avatar name={name} size={126} />
       </div>
       <h3 className="text-lg font-medium" style={{ color: borderColor }}>{name}</h3>
       <p className="text-gray-600">{role}</p>
