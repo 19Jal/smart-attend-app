@@ -50,7 +50,18 @@ const AttendanceSystemWebsite = () => {
     setActiveSection(sectionId);
     const section = document.getElementById(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      // Get the section's position
+      const sectionPosition = section.getBoundingClientRect().top;
+      // Get the current scroll position
+      const offsetPosition = sectionPosition + window.pageYOffset;
+      // Apply the offset (e.g., 80px for the header height)
+      const offsetValue = 50;
+      
+      // Scroll to the position with offset
+      window.scrollTo({
+        top: offsetPosition - offsetValue,
+        behavior: 'smooth'
+      });
     }
   };
   
@@ -196,53 +207,113 @@ const AttendanceSystemWebsite = () => {
               }}
               onClick={(e) => {
                 e.preventDefault();
-                setActiveSection('features');
                 setMobileMenuOpen(false);
+                
+                setTimeout(() => {
+                  const section = document.getElementById("features");
+                  if (section) {
+                    const headerOffset = 50;
+                    const elementPosition = section.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                    
+                    setActiveSection('features');
+                  }
+                }, 300);
               }}
             >
               Features
             </a>
             <a 
               href="#how-it-works" 
-              className="block py-2 px-4 rounded transition-colors"
+              className="block py-2 px-4 rounded transition-colors" 
               style={{ 
                 backgroundColor: activeSection === 'how-it-works' ? colors.primary[700] : 'transparent',
                 color: activeSection === 'how-it-works' ? colors.accent[300] : 'white'
               }}
               onClick={(e) => {
                 e.preventDefault();
-                setActiveSection('how-it-works');
                 setMobileMenuOpen(false);
+                
+                setTimeout(() => {
+                  const section = document.getElementById("how-it-works");
+                  if (section) {
+                    const headerOffset = 50;
+                    const elementPosition = section.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                    
+                    setActiveSection('how-it-works');
+                  }
+                }, 300);
               }}
             >
               How It Works
             </a>
             <a 
               href="#benefits" 
-              className="block py-2 px-4 rounded transition-colors"
+              className="block py-2 px-4 rounded transition-colors" 
               style={{ 
                 backgroundColor: activeSection === 'benefits' ? colors.primary[700] : 'transparent',
                 color: activeSection === 'benefits' ? colors.accent[300] : 'white'
               }}
               onClick={(e) => {
                 e.preventDefault();
-                setActiveSection('benefits');
                 setMobileMenuOpen(false);
+                
+                setTimeout(() => {
+                  const section = document.getElementById("benefits");
+                  if (section) {
+                    const headerOffset = 50;
+                    const elementPosition = section.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                    
+                    setActiveSection('benefits');
+                  }
+                }, 300);
               }}
             >
               Benefits
             </a>
             <a 
               href="#testimonials" 
-              className="block py-2 px-4 rounded transition-colors"
+              className="block py-2 px-4 rounded transition-colors" 
               style={{ 
                 backgroundColor: activeSection === 'testimonials' ? colors.primary[700] : 'transparent',
                 color: activeSection === 'testimonials' ? colors.accent[300] : 'white'
               }}
               onClick={(e) => {
                 e.preventDefault();
-                setActiveSection('testimonials');
                 setMobileMenuOpen(false);
+                
+                setTimeout(() => {
+                  const section = document.getElementById("testimonials");
+                  if (section) {
+                    const headerOffset = 50;
+                    const elementPosition = section.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                    
+                    setActiveSection('testimonials');
+                  }
+                }, 300);
               }}
             >
               Testimonials
@@ -286,18 +357,16 @@ const AttendanceSystemWebsite = () => {
                   Get Started
                 </button>
                 <button 
-                  className="border-2 border-white px-6 py-3 rounded-lg font-medium transition-colors"
+                  className="px-6 py-3 rounded-lg font-medium shadow-lg transition-colors"
                   style={{ 
-                    backgroundColor: 'transparent',
+                    backgroundColor: colors.accent[500],
                     color: 'white'
                   }}
                   onMouseOver={(e) => {
-                    e.currentTarget.style.backgroundColor = 'white';
-                    e.currentTarget.style.color = colors.primary[700];
+                    e.currentTarget.style.backgroundColor = colors.accent[600]
                   }}
                   onMouseOut={(e) => {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.color = 'white';
+                    e.currentTarget.style.backgroundColor = colors.accent[500]
                   }}
                 >
                   Watch Demo
@@ -403,14 +472,14 @@ const AttendanceSystemWebsite = () => {
                 numberBgColor={colors.secondary[500]}
                 title="Detect & Recognize"
                 titleColor={colors.secondary[700]}
-                description="Edge devices process the images to detect and recognize faces using advanced AI algorithms."
+                description="Edge devices process the images to detect and send face images to AWS."
               />
               <StepItem 
                 number="3"
                 numberBgColor={colors.accent[500]}
                 title="Process & Store"
                 titleColor={colors.accent[700]}
-                description="All data is securely processed and stored in AWS cloud for reliable access."
+                description="AWS computes facial recognition and all data is securely processed and stored in AWS cloud for reliable access."
               />
               <StepItem 
                 number="4"
@@ -507,7 +576,7 @@ const AttendanceSystemWebsite = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <TestimonialCard 
-              organization="National Taiwan University"
+              organization="University of John Maston"
               sector="Education Sector"
               testimonial="SmartAttend has revolutionized how we track attendance across our campus. The system is reliable, accurate, and has saved our staff countless hours of administrative work."
               borderColor={colors.accent[500]}
@@ -516,7 +585,7 @@ const AttendanceSystemWebsite = () => {
             />
             
             <TestimonialCard 
-              organization="TechCorp Industries"
+              organization="Arthur Industries"
               sector="Corporate Sector"
               testimonial="The accuracy of facial recognition and real-time reporting has improved our operational efficiency. Our team loves the intuitive dashboard and security features."
               borderColor={colors.primary[500]}
@@ -525,7 +594,7 @@ const AttendanceSystemWebsite = () => {
             />
             
             <TestimonialCard 
-              organization="Taipei Medical Center"
+              organization="Gerald Medical"
               sector="Healthcare Sector"
               testimonial="Implementing SmartAttend has enhanced our security protocols while streamlining staff attendance. The system integrated seamlessly with our existing infrastructure."
               borderColor={colors.secondary[500]}
